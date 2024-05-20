@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { saveQuestionAnswerAsync } from "../store/rootSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "./Header";
+import ErrorPage from "./ErrorPage";
 
 function Poll() {
   const { userInfo } = useSelector((state) => state.root);
   let { question_id } = useParams();
   const navigate = useNavigate();
   const question = useSelector((state) => state.root.questions[question_id]);
-  let user = useSelector((state) => state.root.users[question.author]);
+
+  let user = useSelector((state) => state.root.users[question?.author || '']);
 
   const [isVote, setIsVote] = useState(false);
   const [option, setOption] = useState("");
@@ -46,11 +48,18 @@ function Poll() {
     Object.keys(userInfo.answers).forEach(key => {
       answers.push(key);
     });
-    if(answers.find((id) => id === question.id)){
-      setAnswer(userInfo.answers[question.id]);
+    if(question && answers.find((id) => id === question?.id)){
+      setAnswer(userInfo.answers[question?.id]);
     }
   }
+
+  if (!question) {
+    return (<ErrorPage />)
+  }
+
+
   return (
+    question && 
     <div>
       <Header />
       <div>

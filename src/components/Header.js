@@ -71,7 +71,7 @@ export default function Header({ title }) {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={'/image/' + userInfo.avatarURL}
+                        src={'/image/' + userInfo?.avatarURL|| 'sarahedo.jpg'}
                         alt=""
                       />
                     </Menu.Button>

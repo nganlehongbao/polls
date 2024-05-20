@@ -9,6 +9,12 @@ import { useNavigate } from "react-router-dom";
 const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { users, path } = useSelector((state) => state.root);
+  let usersList = [];
+  Object.keys(users).forEach(function (key) {
+    usersList.push(users[key]);
+  });
+
   const userInfo = useSelector(selectCurrentUser);
   const [isSubmit, setIsSubmit] = useState(false);
   const [id, setId] = useState("");
@@ -16,7 +22,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if(userInfo){
-      navigate("/dashboard");
+      navigate(path || "/dashboard");
     }
   }, [userInfo])
 
@@ -47,7 +53,7 @@ const LoginScreen = () => {
               src="https://cdn-icons-png.flaticon.com/512/9131/9131514.png"
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 data-testid='user-label' className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>
           </div>
@@ -59,14 +65,19 @@ const LoginScreen = () => {
                   User
                 </label>
                 <div className="mt-2">
-                  <input
+                  {/* <input
                     id="user"
                     name="user"
                     type="text"
                     autoComplete="user"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
-                  />
+                  /> */}
+                <select id="user" name="user" className="block w-full rounded-md border-0 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2">
+                  {usersList.map((user) => (
+                    <option key={user.id} value={user.id}>{user.name}</option>
+                  ))}
+                </select>
                 </div>
               </div>
   

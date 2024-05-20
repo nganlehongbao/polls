@@ -183,6 +183,9 @@ export const rootSlice = createSlice({
       let path = action.payload.path;
       state.path = path;
     },
+    clearHistoryPath: (state) => {
+      // state.path = null;
+    },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware(defaultMiddlewareConfig),
   },
@@ -252,7 +255,7 @@ export const rootSlice = createSlice({
   },
 });
 
-export const { logout, login, historyPath } = rootSlice.actions;
+export const { logout, login, historyPath, clearHistoryPath } = rootSlice.actions;
 
 export const selectCurrentUser = (state) => state.root.userInfo;
 

@@ -13,11 +13,12 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from 'react-router-dom';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route element={<RootPage />}>
+      <Route element={<RootPage />} errorElement={<ErrorPage />}>
         <Route path='/login' element={<LoginScreen />} />
         <Route path='/' element={<LoginScreen />} />
         <Route element={<ProtectedRoute />}>
