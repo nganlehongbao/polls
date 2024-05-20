@@ -7,5 +7,5 @@ This is an Udacity final project of course React.
 ### `To run application local, run script`
 **npm start**
 
-### `Access in your browser`
+### `Access application in your browser`
 http://localhost:3000/
